@@ -7,11 +7,14 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.util.math.BlockPos;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
+import java.util.Arrays;
 import java.util.Objects;
 
 public abstract class MultiBlockEntity extends BlockEntity {
-    
-    BlockPos controllerBlockPos;
+
+    private boolean valid;
+    private BlockPos controllerBlockPos;
     
     public MultiBlockEntity(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState) {
         super(blockEntityType, blockPos, blockState);
@@ -23,8 +26,9 @@ public abstract class MultiBlockEntity extends BlockEntity {
                 for (int i = 0; i < 4; i++) {
                     Block[][][] rotatedStructureMatrixPure = getRotatedStructureMatrixPure(i);
                     controllerBlockPos = getStructureOffset(rotatedStructureMatrixPure);
-                    System.out.println("Structure Offset is: " + controllerBlockPos);
+                    //System.out.println("Structure Offset is: " + controllerBlockPos);
                     if (validateStructurePure(rotatedStructureMatrixPure)) {
+                        valid = true;
                         return true;
                     }
                 }
@@ -32,11 +36,13 @@ public abstract class MultiBlockEntity extends BlockEntity {
                 for (int i = 0; i < 4; i++) {
                     Block[][][][] rotatedStructureMatrixList = getRotatedStructureMatrixList(i);
                     if (validateStructureList(rotatedStructureMatrixList)) {
+                        valid = true;
                         return true;
                     }
                 }
             }
         }
+        valid = false;
         return false;
     }
 
@@ -92,7 +98,7 @@ public abstract class MultiBlockEntity extends BlockEntity {
     }
     
     private boolean checkBlock(BlockPos blockPos, Block block) {
-        System.out.println("Found block: " + getWorld().getBlockState(getLocalBlockPos(blockPos)).getBlock() + " at: " + getLocalBlockPos(blockPos) + " and wanted block: " + block);
+        //System.out.println("Found block: " + getWorld().getBlockState(getLocalBlockPos(blockPos)).getBlock() + " at: " + getLocalBlockPos(blockPos) + " and wanted block: " + block);
         if(block == Blocks.AIR) {
             return true;
         }
@@ -118,17 +124,19 @@ public abstract class MultiBlockEntity extends BlockEntity {
         int rotations = x%4;
         Block[][][] rotatedStructureMatrixPure = getStructureMatrixPure();
         for(int y = 0; y < getStructureMatrixPure().length; y++) {
-            Block[][] layer = getStructureMatrixPure()[y];
+            Block[][] layer = rotatedStructureMatrixPure[y];
             //rotate
-            for(int r = 1; r < rotations + 1; r++) {
+            for(int r = 0; r < rotations; r++) {
+                //System.out.println("Input: " + Arrays.deepToString(layer));
                 //transpose
                 for(int i = 0; i < layer.length; i++) {
                     for(int j = i + 1; j < layer.length; j++) {
                         Block temp = layer[i][j];
                         layer[i][j] = layer[j][i];
-                        layer[i][j] = temp;
+                        layer[j][i] = temp;
                     }
                 }
+                //System.out.println("Transpose: " + Arrays.deepToString(layer));
                 //reverse rows
                 for(int i = 0; i < layer.length; i++) {
                     int start = 0;
@@ -141,9 +149,13 @@ public abstract class MultiBlockEntity extends BlockEntity {
                         end--;
                     }
                 }
+                //System.out.println("Reverse Rows: " + Arrays.deepToString(layer));
             }
             rotatedStructureMatrixPure[y] = layer;
         }
+        //System.out.println(rotatedStructureMatrixPure.length);
+        //System.out.println(Arrays.deepToString(getStructureMatrixPure()[1]));
+        //System.out.println(Arrays.deepToString(rotatedStructureMatrixPure[1]));
         return rotatedStructureMatrixPure;
     }
     
@@ -168,6 +180,11 @@ public abstract class MultiBlockEntity extends BlockEntity {
         }
         return new BlockPos(0,0,0);
     }
+    
+    public boolean isStructureValid() {
+        return this.valid;
+    }
+    
     //this is a matrix containing your structure made up of direct block references!
     //if a portion of your structure has to air, use Blocks.STRUCTURE_VOID for those spots. Blocks.AIR can be any block
     //WARNING: structure files MUST BE SQUARE HORIZONTALLY. Vertically as well if you want your structure to rotate vertically. if you dont want your actual structure to be square, fill in the blank areas with Blocks.AIR

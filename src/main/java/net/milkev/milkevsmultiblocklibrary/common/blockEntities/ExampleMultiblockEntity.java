@@ -16,7 +16,6 @@ import net.minecraft.world.World;
 
 public class ExampleMultiblockEntity extends MultiBlockEntity implements BlockEntityTicker<ExampleMultiblockEntity> {
     
-
     public ExampleMultiblockEntity(BlockPos blockPos, BlockState blockState) {
         super(MilkevsMultiBlockLibrary.EXAMPLE_MULTIBLOCK_ENTITY, blockPos, blockState);
     }
@@ -28,6 +27,7 @@ public class ExampleMultiblockEntity extends MultiBlockEntity implements BlockEn
 
     public ActionResult interact(BlockState blockState, World world, BlockPos blockPos, PlayerEntity playerEntity, Hand hand, BlockHitResult blockHitResult) {
         validateStructure();
+        System.out.println(isStructureValid());
         return ActionResult.FAIL;
     }
 
@@ -36,8 +36,13 @@ public class ExampleMultiblockEntity extends MultiBlockEntity implements BlockEn
         return new Block[][][]{
                 {
                         {Blocks.AIR, Blocks.NETHERITE_BLOCK, Blocks.AIR},
-                        {Blocks.NETHERITE_BLOCK, MilkevsMultiBlockLibrary.EXAMPLE_MULTIBLOCK, Blocks.NETHERITE_BLOCK},
+                        {Blocks.NETHERITE_BLOCK, Blocks.NETHERITE_BLOCK, Blocks.NETHERITE_BLOCK},
                         {Blocks.AIR, Blocks.NETHERITE_BLOCK, Blocks.AIR}
+                },
+                {
+                        {Blocks.AIR, MilkevsMultiBlockLibrary.EXAMPLE_MULTIBLOCK, Blocks.AIR},
+                        {Blocks.LAPIS_BLOCK, Blocks.STRUCTURE_VOID, Blocks.LAPIS_BLOCK},
+                        {Blocks.AIR, Blocks.LAPIS_BLOCK, Blocks.AIR}
                 }
         };
     }
