@@ -1,0 +1,8 @@
+/build/
+/.idea/
+/logs/
+/.gradle/
+/run/
+*.psd
+*.kra
+*.kra~

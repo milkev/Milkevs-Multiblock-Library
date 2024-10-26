@@ -1,0 +1,13 @@
+
+{
+  "required": true,
+  "package": "net.milkev.milkevsoreminers.common.mixins",
+  "compatibilityLevel": "JAVA_16",
+  "mixins": [
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
