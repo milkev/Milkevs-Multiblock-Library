@@ -25,7 +25,7 @@ public abstract class MultiBlockEntity extends BlockEntity {
             if (getStructureMatrixPure().length > 0) {
                 for (int i = 0; i < 4; i++) {
                     Block[][][] rotatedStructureMatrixPure = getRotatedStructureMatrixPure(i);
-                    controllerBlockPos = getStructureOffset(rotatedStructureMatrixPure);
+                    controllerBlockPos = getStructureOffsetPure(rotatedStructureMatrixPure);
                     //System.out.println("Structure Offset is: " + controllerBlockPos);
                     if (validateStructurePure(rotatedStructureMatrixPure)) {
                         valid = true;
@@ -35,6 +35,7 @@ public abstract class MultiBlockEntity extends BlockEntity {
             } else if(getStructureMatrixList().length > 0) {
                 for (int i = 0; i < 4; i++) {
                     Block[][][][] rotatedStructureMatrixList = getRotatedStructureMatrixList(i);
+                    controllerBlockPos = getStructureOffsetList(rotatedStructureMatrixList);
                     if (validateStructureList(rotatedStructureMatrixList)) {
                         valid = true;
                         return true;
@@ -159,21 +160,70 @@ public abstract class MultiBlockEntity extends BlockEntity {
         return rotatedStructureMatrixPure;
     }
     
-    private Block[][][][] getRotatedStructureMatrixList(int i) {
-        return getStructureMatrixList();
+    private Block[][][][] getRotatedStructureMatrixList(int x) {
+        int rotations = x%4;
+        Block[][][][] rotatedStructureMatrixList = getStructureMatrixList();
+        for(int y = 0; y < rotatedStructureMatrixList.length; y++) {
+            Block[][][] layer = rotatedStructureMatrixList[y];
+            //rotate
+            for(int r = 0; r < rotations; r++) {
+                //System.out.println("Input: " + Arrays.deepToString(layer));
+                //transpose
+                for(int i = 0; i < layer.length; i++) {
+                    for(int j = i + 1; j < layer.length; j++) {
+                        Block[] temp = layer[i][j];
+                        layer[i][j] = layer[j][i];
+                        layer[j][i] = temp;
+                    }
+                }
+                //System.out.println("Transpose: " + Arrays.deepToString(layer));
+                //reverse rows
+                for(int i = 0; i < layer.length; i++) {
+                    int start = 0;
+                    int end = layer.length - 1;
+                    while(start < end) {
+                        Block[] temp = layer[i][start];
+                        layer[i][start] = layer[i][end];
+                        layer[i][end] = temp;
+                        start++;
+                        end--;
+                    }
+                }
+                //System.out.println("Reverse Rows: " + Arrays.deepToString(layer));
+            }
+            rotatedStructureMatrixList[y] = layer;
+        }
+        //System.out.println(rotatedStructureMatrixPure.length);
+        //System.out.println(Arrays.deepToString(getStructureMatrixPure()[1]));
+        //System.out.println(Arrays.deepToString(rotatedStructureMatrixPure[1]));
+        return rotatedStructureMatrixList;
     }
     
-    private BlockPos getStructureOffset(Block[][][] structureMatrix) {
-        if(getStructureMatrixPure().length > 0) {
-            for (int y = 0; y < structureMatrix.length; y++) {
-                Block[][] yMatrix = structureMatrix[y];
-                for (int x = 0; x < yMatrix.length; x++) {
-                    Block[] xMatrix = yMatrix[x];
-                    for (int z = 0; z < xMatrix.length; z++) {
-                        Block block = xMatrix[z];
-                        if(block == getWorld().getBlockState(this.pos).getBlock()) {
-                            return new BlockPos(x, y, z);
-                        }
+    private BlockPos getStructureOffsetPure(Block[][][] structureMatrix) {
+        for (int y = 0; y < structureMatrix.length; y++) {
+            Block[][] yMatrix = structureMatrix[y];
+            for (int x = 0; x < yMatrix.length; x++) {
+                Block[] xMatrix = yMatrix[x];
+                for (int z = 0; z < xMatrix.length; z++) {
+                    Block block = xMatrix[z];
+                    if(block == getWorld().getBlockState(this.pos).getBlock()) {
+                        return new BlockPos(x, y, z);
+                    }
+                }
+            }
+        }
+        return new BlockPos(0,0,0);
+    }
+
+    private BlockPos getStructureOffsetList(Block[][][][] structureMatrix) {
+        for (int y = 0; y < structureMatrix.length; y++) {
+            Block[][][] yMatrix = structureMatrix[y];
+            for (int x = 0; x < yMatrix.length; x++) {
+                Block[][] xMatrix = yMatrix[x];
+                for (int z = 0; z < xMatrix.length; z++) {
+                    Block[] block = xMatrix[z];
+                    if(block[0] == getWorld().getBlockState(this.pos).getBlock()) {
+                        return new BlockPos(x, y, z);
                     }
                 }
             }

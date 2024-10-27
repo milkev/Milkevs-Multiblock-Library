@@ -33,6 +33,7 @@ public class ExampleMultiblockEntity extends MultiBlockEntity implements BlockEn
 
     @Override
     protected Block[][][] getStructureMatrixPure() {
+        /*
         return new Block[][][]{
                 {
                         {Blocks.AIR, Blocks.NETHERITE_BLOCK, Blocks.AIR},
@@ -44,12 +45,32 @@ public class ExampleMultiblockEntity extends MultiBlockEntity implements BlockEn
                         {Blocks.LAPIS_BLOCK, Blocks.STRUCTURE_VOID, Blocks.LAPIS_BLOCK},
                         {Blocks.AIR, Blocks.LAPIS_BLOCK, Blocks.AIR}
                 }
-        };
+            };
+                
+     */
+        return new Block[][][]{};
     }
+    
 
     @Override
     protected Block[][][][] getStructureMatrixList() {
-        return new Block[][][][]{};
+        Block[] walls = new Block[]{Blocks.NETHERITE_BLOCK,Blocks.ANCIENT_DEBRIS};
+        Block[] tips = new Block[]{Blocks.DIAMOND_BLOCK,Blocks.LAPIS_BLOCK};
+        Block[] core = new Block[]{MilkevsMultiBlockLibrary.EXAMPLE_MULTIBLOCK};
+        Block[] air = new Block[]{Blocks.AIR};
+        Block[] sVoid = new Block[]{Blocks.STRUCTURE_VOID};
+        return new Block[][][][]{
+                {
+                        {air, walls, air},
+                        {walls, walls, walls},
+                        {air, walls, air}
+                },
+                {
+                        {air, tips, air},
+                        {tips, sVoid, tips},
+                        {air, core, air}
+                }
+        };
     }
 
     @Override
