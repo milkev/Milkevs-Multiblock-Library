@@ -1,9 +1,66 @@
-MIT License
+Copyright (c) 2021 milkev
 
-Copyright (c) 2024 Milkev
+Milkev's Modified Version of Blu's License of Common Sense
+This is a modified version of Blu's License of Common Sense
+====================================
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+Here's how it goes: I like making my code visible so that others may learn from it. Reason for that is because I myself learned a lot that way.
+What I don't like is anyone's creative property being stolen, used without credit or commercialized without permission.
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+As such, this is my custom license which should hopefully cover all that:
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#### Definitions of Terms:
+- "You": refers to anyone who is not the license holder
+
+#### Disclaimer:
+- While I have done my best to cover all use cases of this project, if there is a situation wherein permissions are not covered by this license, assume you do not have those permissions. If you believe you should have those permissions, contact me.
+
+#### What you *can* do:
+- Look at the code, draw inspiration, copy bits of it to use in your own projects
+- Fork this repository and modify its code
+- Submit Pull Requests to this repository
+- Write other projects that base on this project and its API (if present) (This means Addons are totally cool)
+- Include this mod in minecraft modpacks
+- Monetize video's, streams or other content created from playing minecraft with this mod installed.
+
+#### What you *can not* do:
+- Claim any of this code to be your property
+- Redistribute this project (source or compiled) without explicit permission of the license holder
+- Copy large sections of this code (classes, complex methods) without giving credit
+- Monetize any part of this project in a way which requires a direct or indirect transfer of money to gain access the project. This means selling the code, compiled projects and also forbids the use of paywalls or "donations" to restrict access to any part of the project's content.
+
+#### What you *have to* abide by:
+- If you have used any code from this project (with the exception of API classes), that project must also be visible source. This allows others to learn from your work.
+- Give proper credit where it's due when copying portions of the code (see above)
+
+#### On the topic of *resources*:
+- Always give credit to original artists/creators
+- Always ask for permission before copying assets
+- Addon mods are allowed to use and remix art & model assets for the sole purpose of being addons. When in doubt, better ask.
+
+#### Contributing to this repository:
+- The original author keeps copyright of their contributed code and resources
+- The owner of this repository is given rights to usage and modification of the contributed code or resource. This may not be withdrawn
+- Any code or resource submitted must be licensed to this project with this license
+
+#### Abandonment:
+- This project will be considered abandoned if; the project has not received an update in over 365 days, there is no intents of further updates and the license holder is "unable to be contacted" (for the license holder be considered "unable to be contacted", all means of communication listed in the "Means of Contact" section of this document must have successfully been attempted and have had absolutely no response in over 365 days.)
+- This project may also be explicitly labeled as abandoned by the license holder. This can be done by marking this repository as archived, or creating a pinned issue stating that the mod has been abandoned.
+- Should this project be "abandoned" as outlined above, then all permissions withheld by this license shall be given to everyone.
+
+#### Means of Contact:
+- This section outlines methods of contacting the license holder.
+- Making an issue on this repository
+- Messaging on curseforge: https://www.curseforge.com/members/milkev
+- Messaging on discord: @milkev or https://discord.gg/DjXjs5Ev8r
+- Any means of contact listed in the license holder's github profile including but not limited to; email (you must be logged in to github to see public emails), links to external accounts, links to social media accounts, links to forums, links to chat rooms
+
+#### In summary:
+Please, look at the code and learn from it (where possible). Draw inspiration, be creative, enjoy yourself. Should you find issues, point them out. Have an idea how to fix it? Submit a PR.
+Stealing code or assets isn't cool though. Don't do that.
+
+This project is provided "as is", without warranty of any kind, including but not limited to the warranties of merchantability, fitness for a particular purpose or non-infringement.
+The authors or copyright holders are not liable for any claim, damages or other liability, whether in actions of contract, tort or other, arising from, out of or in connection to this project, its use, or related projects.
+
+Lastly, I hereby reserve the right to revoke this license's permissions from people who violate [Wheaton's Law](http://www.wheatonslaw.com).
+

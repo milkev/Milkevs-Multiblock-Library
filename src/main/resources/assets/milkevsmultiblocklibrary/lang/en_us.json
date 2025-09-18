@@ -1,3 +1,6 @@
 {
-
+  "item.milkevsmultiblocklibrary.multiblock_builder": "Multiblock Builder",
+  "item.milkevsmultiblocklibrary.multiblock_builder.desc_rotate": "§7Crouch and Right click on the controller to rotate the preview",
+  "item.milkevsmultiblocklibrary.multiblock_builder.desc_place": "§7Right click on the controller to place blocks",
+  "item.milkevsmultiblocklibrary.multiblock_builder.desc_preview": "§7Crouch Right click on the controller with an empty hand to toggle preview"
 }

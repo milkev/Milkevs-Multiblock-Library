@@ -1,6 +1,7 @@
-package net.milkev.milkevsmultiblocklibrary.common.blocks;
+package net.milkev.milkevsmultiblocklibrary.common.example.blocks;
 
-import net.milkev.milkevsmultiblocklibrary.common.blockEntities.ExampleMultiblockEntity;
+import com.mojang.serialization.MapCodec;
+import net.milkev.milkevsmultiblocklibrary.common.example.blockEntites.ExampleMultiblockEntity;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -10,7 +11,6 @@ import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -22,17 +22,22 @@ public class ExampleMultiblock extends BlockWithEntity implements BlockEntityPro
     }
 
     @Override
-    public ActionResult onUse(BlockState blockState, World world, BlockPos blockPos, PlayerEntity playerEntity, Hand hand, BlockHitResult blockHitResult) {
-        if(world.isClient) {return ActionResult.SUCCESS;}
-        ExampleMultiblockEntity miningRigBlockEntity = (ExampleMultiblockEntity) world.getBlockEntity(blockPos);
+    protected MapCodec<? extends BlockWithEntity> getCodec() {
+        return null;
+    }
 
-        return miningRigBlockEntity.interact(blockState, world, blockPos, playerEntity, hand, blockHitResult);
+    @Override
+    public ActionResult onUse(BlockState blockState, World world, BlockPos blockPos, PlayerEntity playerEntity, BlockHitResult blockHitResult) {
+        if(world.isClient) {return ActionResult.SUCCESS;}
+        ExampleMultiblockEntity exampleBlockEntity = (ExampleMultiblockEntity) world.getBlockEntity(blockPos);
+
+        return exampleBlockEntity.interact(blockState, world, blockPos, playerEntity, blockHitResult);
     }
 
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
         return (world1, pos, state1, blockEntity) -> {
-            if (blockEntity instanceof BlockEntityTicker) {
-                ((BlockEntityTicker) blockEntity).tick(world1, pos, state1, blockEntity);
+            if (blockEntity instanceof BlockEntityTicker blockEntityTicker) {
+                blockEntityTicker.tick(world1, pos, state1, blockEntity);
             }
         };
     }

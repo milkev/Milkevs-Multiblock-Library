@@ -1,0 +1,29 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#iR",
+        "iDi",
+        "Ri/"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:wind_charge"
+        },
+        "i": {
+            "item": "minecraft:iron_ingot"
+        },
+        "R": {
+            "item": "minecraft:redstone"
+        },
+        "D": {
+            "item": "minecraft:diamond"
+        },
+        "/": {
+            "item": "minecraft:stick"
+        }
+    },
+    "result": {
+        "id": "milkevsmultiblocklibrary:multiblock_builder",
+        "count": 1
+    }
+}
