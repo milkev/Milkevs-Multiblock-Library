@@ -33,7 +33,7 @@ public class MultiBlockEntityRenderer implements BlockEntityRenderer<MultiBlockE
         if(blockEntity.isRenderPreview()) {
             matrixStack.push();
             Map<BlockPos, List<Block>> blocksMissing = blockEntity.getBlocksMissing();
-
+            //System.out.println("rendering multiblock preview");
             blocksMissing.forEach(((blockPos, blocks) -> {
                 float time = blockEntity.getWorld().getTime() + tickDelta;
                 int timeFactor = 20;

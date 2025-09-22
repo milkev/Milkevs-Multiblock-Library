@@ -8,7 +8,6 @@ import net.milkev.milkevsmultiblocklibrary.common.example.blockEntites.ExampleMu
 import net.milkev.milkevsmultiblocklibrary.common.blockEntities.MultiBlockEntity;
 import net.milkev.milkevsmultiblocklibrary.common.example.blocks.ExampleMultiblock;
 import net.milkev.milkevsmultiblocklibrary.common.items.MultiBlockBuilder;
-import net.milkev.milkevsmultiblocklibrary.common.utils.MultiBlockEntityComponent;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.component.ComponentType;
@@ -24,15 +23,8 @@ public class MilkevsMultiBlockLibrary implements ModInitializer {
 
 	public static final String MOD_ID = "milkevsmultiblocklibrary";
 	
-	public static final ComponentType<MultiBlockEntityComponent> MULTIBLOCK_ENTITY_COMPONENT = Registry.register(
-			Registries.DATA_COMPONENT_TYPE,
-			Identifier.of(MOD_ID, "multiblock_entity_component"),
-			ComponentType.<MultiBlockEntityComponent>builder().codec(MultiBlockEntityComponent.CODEC).build()
-	);
-	
 	public static ExampleMultiblock EXAMPLE_MULTIBLOCK = null;
 	public static BlockEntityType<ExampleMultiblockEntity> EXAMPLE_MULTIBLOCK_ENTITY = null;
-	
 	
 	public static MultiBlockBuilder MULTIBLOCK_BUILDER = new MultiBlockBuilder(new Item.Settings().maxCount(1).rarity(Rarity.RARE));
 	
@@ -45,8 +37,6 @@ public class MilkevsMultiBlockLibrary implements ModInitializer {
 		ModConfig config = AutoConfig.getConfigHolder(ModConfig.class).getConfig();
 		
 		Registry.register(Registries.ITEM, Identifier.of(MOD_ID, "multiblock_builder"), MULTIBLOCK_BUILDER);
-
-		PayloadTypeRegistry.playS2C().register(MultiBlockEntityComponent.MultiBlockEntityPayload.ID, MultiBlockEntityComponent.MultiBlockEntityPayload.PACKET_CODEC);
 
 		if(config.ExampleMultiblock) {
 			EXAMPLE_MULTIBLOCK = new ExampleMultiblock(AbstractBlock.Settings.create().strength(50));

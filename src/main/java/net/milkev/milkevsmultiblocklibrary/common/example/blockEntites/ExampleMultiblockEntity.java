@@ -27,11 +27,11 @@ public class ExampleMultiblockEntity extends MultiBlockEntity {
     public ExampleMultiblockEntity(BlockPos blockPos, BlockState blockState) {
         super(MilkevsMultiBlockLibrary.EXAMPLE_MULTIBLOCK_ENTITY, blockPos, blockState);
     }
-
+    
     @Override
-    public void ticker(World world, BlockPos bLockPos, BlockState blockState, MultiBlockEntity blockEntity) {
-        //this is your ticking function
-        //oooo look at me im ticckiinnnnggggg
+    public void tick(World world, BlockPos blockPos, BlockState blockState, MultiBlockEntity blockEntity) {
+        //nothing much for this example multiblock to do in the ticker other than validate
+        validateStructure();
     }
     
     public ActionResult interact(BlockState blockState, World world, BlockPos blockPos, PlayerEntity playerEntity, BlockHitResult blockHitResult) {
