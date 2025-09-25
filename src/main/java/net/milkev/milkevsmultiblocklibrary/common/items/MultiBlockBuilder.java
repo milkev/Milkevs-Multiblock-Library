@@ -39,6 +39,7 @@ public class MultiBlockBuilder extends Item {
             //if structure is valid, dont do anything
             //System.out.println("MultiBlockBuilder::UseOnBlock - begin");
             if(multiBlockEntity.isStructureValid()) {
+                itemUsageContext.getPlayer().sendMessage(Text.of("Structure Complete!"), true);
                 return ActionResult.PASS;
             }
             //if player crouching, change direction
