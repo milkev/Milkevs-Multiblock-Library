@@ -8,7 +8,12 @@ Wiki coming soon! however the code is fully documented, and an example has been 
 
 to do before release;
   -better visuals for the build hologram
+  
+  -make a wiki
+
+  -add way to view build requirements (block list) other than emi (not implemented)
 
 to do after release;
   -implement vertical rotatable structures
-  -make a wiki
+
+  -emi integration with build list, build preview & individual layer view
