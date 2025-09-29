@@ -6,7 +6,7 @@
 
 Wiki coming soon! however the code is fully documented, and an example has been included for those interested.
 
-to do before release;
+## to do before release;
 
   -better visuals for the build hologram
   
@@ -16,7 +16,7 @@ to do before release;
 
 
 
-to do after release;
+## to do after release;
 
   -implement vertical rotatable structures
 
