@@ -70,20 +70,26 @@ public abstract class MultiBlockEntity extends BlockEntity implements BlockEntit
     }
     
     //call this to update if the structure is valid
+    //check
     public void validateStructure() {
+        markDirty();
         if(!Objects.requireNonNull(getWorld()).isClient()) {
             if(getStructureMatrixList().length > 0) {
                 if(validateStructureDirectional(Direction.NORTH)) {
                     valid = true;
+                    blocksMissing.clear();
                     return;
                 }if(validateStructureDirectional(Direction.EAST)) {
                     valid = true;
+                    blocksMissing.clear();
                     return;
                 }if(validateStructureDirectional(Direction.SOUTH)) {
                     valid = true;
+                    blocksMissing.clear();
                     return;
                 }if(validateStructureDirectional(Direction.WEST)) {
                     valid = true;
+                    blocksMissing.clear();
                     return;
                 }
             }
@@ -317,7 +323,61 @@ public abstract class MultiBlockEntity extends BlockEntity implements BlockEntit
     //this returns a map of all blocks in the structure. you can search this list for important blocks you need references to such as io blocks
     //the blockPos here is global
     public Map<BlockPos, Block> getBlocksInStructure() {
+        //will call validate structure if the blocklist is empty since the blocklist is not saved and may not have the expected data if the structure is already made and validateStructure has not been called since the last restart
+        if(blocksInStructure.isEmpty()) {
+            validateStructure();
+        }
         return blocksInStructure;
+    }
+    
+    //use this to find the first block of a specific block in your structure
+    public Optional<Map.Entry<BlockPos, Block>> findFirstBlock(Block block) {
+        for(Map.Entry<BlockPos, Block> entry : this.getBlocksInStructure().entrySet()) {
+            if(entry.getValue() == block) {
+                return Optional.of(entry);
+            }
+        }
+        return Optional.empty();
+    }
+    
+    //use this to find all of a specific block in your structure
+    public Optional<Map<BlockPos, Block>> findAllOfBlock(Block block) {
+        Map<BlockPos, Block> map = new HashMap<>();
+        for(Map.Entry<BlockPos, Block> entry : this.getBlocksInStructure().entrySet()) {
+            if(entry.getValue() == block) {
+                map.put(entry.getKey(), entry.getValue());
+            }
+        }
+        if(map.isEmpty()) {
+            return Optional.empty();
+        }
+        return Optional.of(map);
+    }
+    
+    //use this to find the first from of a list of blocks in your structure
+    public Optional<Map.Entry<BlockPos, Block>> findFirstBlockFromList(List<Block> blocks) {
+        for(Block entry : blocks) {
+            Optional<Map.Entry<BlockPos, Block>> test = findFirstBlock(entry);
+            if(test.isPresent()) {
+                return test;
+            }
+        }
+        return Optional.empty();
+    }
+    
+    //use this to find all of a list of blocks in your structure
+    public Optional<Map<BlockPos, Block>> findAllOfBlockFromList(List<Block> blocks) {
+        Map<BlockPos, Block> map = new HashMap<>();
+        for(Block entry : blocks) {
+            Optional<Map<BlockPos, Block>> test = findAllOfBlock(entry);
+            if(test.isPresent()) {
+                map.putAll(test.get());
+            }
+        }
+        if(map.isEmpty()) {
+            return Optional.empty();
+        }
+        return Optional.of(map);
     }
     
     //this returns a matrix of blocks that are missing in the structure, its just used by the builder to determine what next to place
