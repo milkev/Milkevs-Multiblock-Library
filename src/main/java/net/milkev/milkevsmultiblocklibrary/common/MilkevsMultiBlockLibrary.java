@@ -55,11 +55,11 @@ public class MilkevsMultiBlockLibrary implements ModInitializer {
 	If you dont do this, things should work fine, but there wont be a build preview for your structure. theoretically things shouldnt break but tbh i havent tested
 	optional second method below if you dont want it to call the Registry.register function
 	 */
-	public void registerMultiblock(BlockEntityType<? extends MultiBlockEntity> blockEntityType, Identifier id) {
+	public static void registerMultiblock(BlockEntityType<? extends MultiBlockEntity> blockEntityType, Identifier id) {
 		typeList.add(blockEntityType);
 		Registry.register(Registries.BLOCK_ENTITY_TYPE, id, blockEntityType);
 	}
-	public void registerMultiblock(BlockEntityType<? extends MultiBlockEntity> blockEntityType) {
+	public static void registerMultiblock(BlockEntityType<? extends MultiBlockEntity> blockEntityType) {
 		typeList.add(blockEntityType);
 		
 	}
